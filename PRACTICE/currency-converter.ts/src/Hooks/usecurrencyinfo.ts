@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
 
-// CUSTOM TYPE ALLIAS USING UTILITY TYPE
-type currencyData = {
+// // CUSTOM TYPE ALLIAS USING UTILITY TYPE
+type CurrencyData = {
   date: string;
-  usd: Record<string, number>;
+  [key: string]: Record<string, number> | string;
 };
 
-function usecurrencyinfo(currency: string): currencyData {
-  const [data, setdata] = useState<currencyData>({
-    date: "",
-    usd: {},
-  });
+// Hook function
+function useCurrencyInfo(currency: string): Record<string, number> {
+  const [data, setData] = useState<Record<string, number>>({});
 
   useEffect(() => {
     fetch(
       `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency}.json`
     )
       .then((res: Response) => res.json())
-      .then((res: currencyData) => setdata(data));
+      .then((res: CurrencyData) => setData(res[currency] as Record<string, number>));
   }, [currency]);
 
-  return data
+  console.log(data);
+  
+  return data;
 }
+
+export default useCurrencyInfo;
