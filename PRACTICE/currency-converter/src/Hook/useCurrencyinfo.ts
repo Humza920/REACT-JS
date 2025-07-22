@@ -14,7 +14,6 @@ function useCurrencyinfo(currency: string): Record<string, number> {
       .then((res : Response) => res.json())
       .then((res : Data) => setdata(res[currency] as Record<string , number>));
   }, [currency]);
-  console.log(data);
   
   return data;
 }
