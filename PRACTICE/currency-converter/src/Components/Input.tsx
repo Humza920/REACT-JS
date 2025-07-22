@@ -1,5 +1,3 @@
-
-
 type Props = {
   data: string[];
   label: string;
@@ -19,12 +17,10 @@ const Input = ({
 }: Props) => {
 
   return (
-    <div className="w-full bg-white/80 backdrop-blur-lg rounded-2xl shadow-md p-6 mb-2 border border-[#2563eb]/10 transition-all duration-300">
-      <div className="space-y-2">
-        <label className="block text-base font-semibold text-[#2563eb] mb-1 tracking-wide">
-          Amount
-        </label>
-        <div className="relative flex items-center gap-2">
+    <div className="w-full bg-white/10 backdrop-blur-xl rounded-lg shadow-lg p-4 border border-white/20 hover:border-white/30 transition-all duration-300">
+      <div className="flex items-center gap-3">
+        {/* Amount Input */}
+        <div className="flex-1">
           <input
             type="number"
             value={amount}
@@ -42,26 +38,33 @@ const Input = ({
               onAmountchange && onAmountchange(e.target.value)
             }
             disabled={isdisable}
-            placeholder="Enter amount"
-            className="w-full px-4 py-3 border border-[#2563eb]/30 rounded-xl focus:ring-2 focus:ring-[#38bdf8] focus:border-[#38bdf8] outline-none transition-all duration-200 text-[#0f172a] placeholder-[#64748b] bg-[#f8fafc] shadow-sm disabled:bg-[#e2e8f0] disabled:text-[#64748b] text-lg font-medium"
+            placeholder="0.00"
+            className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 outline-none transition-all duration-300 text-white placeholder-blue-200/50 text-lg font-semibold backdrop-blur-sm disabled:bg-white/5 disabled:text-blue-200/50 disabled:cursor-not-allowed hover:border-white/40"
           />
+        </div>
+
+        {/* Currency Select */}
+        <div className="relative">
           <select
             value={label}
             onChange={(e) => onCurrencychange(e.target.value)}
-            className="ml-2 border border-[#2563eb]/30 rounded-xl px-4 py-2 text-base bg-[#f1f5f9] focus:ring-2 focus:ring-[#38bdf8] focus:border-[#38bdf8] outline-none cursor-pointer shadow-sm font-semibold text-[#2563eb] hover:bg-[#e0e7ef] transition-all duration-200 capitalize"
+            className="px-3 py-2 bg-white/5 border border-white/20 rounded-lg focus:ring-2 focus:ring-purple-400/50 focus:border-purple-400/50 outline-none cursor-pointer text-white font-semibold backdrop-blur-sm hover:border-white/40 transition-all duration-300 capitalize appearance-none pr-8 min-w-[80px]"
           >
             {data.map((currenc: string) => {
               return (
-                <option key={currenc} value={currenc} className="capitalize">
+                <option key={currenc} value={currenc} className="capitalize bg-slate-800 text-white cursor-pointer">
                   {currenc}
                 </option>
               );
             })}
           </select>
+          {/* Custom dropdown arrow */}
+          <div className="absolute inset-y-0 right-2 flex items-center pointer-events-none">
+            <svg className="w-3 h-3 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
-        <p className="text-xs text-[#2563eb] mt-1 font-medium tracking-wide">
-          Selected currency: <span className="uppercase">{label}</span>
-        </p>
       </div>
     </div>
   );
