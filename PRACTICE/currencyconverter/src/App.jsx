@@ -4,19 +4,20 @@ import Input from "./Component/Input";
 import useCurrencyInfo from "./Hook/usecurrencyinfo";
 
 function App() {
-  let keysofdata;
-  const [from, setfrom] = useState("usd");
-  const [to, setTo] = useState("pkr");
-  const [amount, setamount] = useState(0);
-  const [resultedamount, setresultedamount] = useState(0);
-  const dataarra = useCurrencyInfo(from);
-  console.log(dataarra[from]);
+  let keysofdata = []
+  let [from, setfrom] = useState("usd");
+  
+  let [to, setTo] = useState("pkr");
+  let [amount, setamount] = useState(0);
+  let [resultedamount, setresultedamount] = useState(0);
+  let dataarra = useCurrencyInfo(from);
+  console.log(dataarra);
 
-  if (dataarra) {
-    keysofdata = Object.keys(dataarra[from]);
-    console.log(keysofdata);
-  }
-
+if (dataarra) {
+  keysofdata = Object.keys(dataarra);
+  console.log(keysofdata);
+}
+    
   return (
     <>
       <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-50 to-gray-100">
