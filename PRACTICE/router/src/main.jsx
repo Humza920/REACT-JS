@@ -4,14 +4,16 @@ import './index.css'
 import Layout from './components/layout'
 import Home from './components/Home/Home'
 import About from './components/About/About'
-import Github from './components/Github/Github'
+import Github, { githubinfoloader } from './components/Github/Github'
+import Params from './components/Params/Params'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
       <Route path='' element={<Home/>}/>
       <Route path='about' element={<About/>}/>
-      <Route path='github' element={<Github/>}/>
+      <Route loader={githubinfoloader} path='github' element={<Github/>}/>
+      <Route path='user/:params' element={<Params/>}/>
     </Route>
   )
 )

@@ -9,7 +9,9 @@ export default function Navbar() {
   };
 
   const navLinkClass = ({ isActive }) =>
-    `${isActive ? "text-gray-700" : "text-white"} hover:text-gray-700 transition-colors duration-300 font-medium`;
+    `${
+      isActive ? "text-gray-700" : "text-white"
+    } hover:text-gray-700 transition-colors duration-300 font-medium`;
 
   return (
     <nav className="bg-gradient-to-r from-amber-500 to-orange-600 shadow-lg sticky top-0 z-50">
@@ -36,6 +38,7 @@ export default function Navbar() {
             <NavLink to="/github" className={navLinkClass}>
               Github
             </NavLink>
+
           </div>
 
           {/* Desktop Button */}
@@ -91,6 +94,7 @@ export default function Navbar() {
             <NavLink to="/github" className={navLinkClass}>
               Github
             </NavLink>
+
             <button className="bg-white text-amber-600 px-5 py-2 rounded-full font-semibold hover:bg-amber-100 hover:shadow-md transition-all duration-300">
               Sign Up
             </button>
