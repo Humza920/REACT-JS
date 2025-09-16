@@ -15,6 +15,10 @@ const Card = ({ todo }) => {
     }
   };
 
+  const onClickDelete = ()=>{
+    deleteTodo(todo.id)
+  }
+
   return (
     <>
       <div className="flex gap-2">
@@ -27,7 +31,7 @@ const Card = ({ todo }) => {
           }}
         />
         <button className="bg-red-400 rounded-3xl" onClick={onClickUpdate}>Edit</button>
-        <button className="bg-red-400 rounded-3xl">Delete</button>
+        <button className="bg-red-400 rounded-3xl" onClick={onClickDelete}>Delete</button>
       </div>
     </>
   );

@@ -4,11 +4,11 @@ import Form from "./components/Form";
 function App() {
   let getarr = localStorage.getItem("savedArr");
   getarr = JSON.parse(getarr);
-  console.log(getarr);
 
   const [todos, settodos] = useState(getarr || []);
 
   useEffect(() => {
+    console.log("run");
     localStorage.setItem("savedArr", JSON.stringify(todos));
   }, [todos]);
 
@@ -22,11 +22,19 @@ function App() {
     });
     const index = todos.indexOf(gettodoforupdate);
     gettodoforupdate.todotitle = todotitle;
-    // console.log(todos.splice(index , 1 , gettodoforupdate));
-    
-    settodos(todos.splice(index , 1 , gettodoforupdate))
+    settodos((prev) => {
+      console.log(prev);
+      let newTodos = [...prev];
+      newTodos[index] = gettodoforupdate;
+      return newTodos;
+    });
   };
-  const deleteTodo = (id) => {};
+  const deleteTodo = (id) => {
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    settodos(newTodos);
+  };
 
   return (
     <>

@@ -15,6 +15,7 @@ const Form = () => {
     addTodo(todoObj);
   };
 
+
   return (
     <>
       <form>
@@ -38,7 +39,7 @@ const Form = () => {
       <br />
       <ul>
         {todos.map((todo) => {
-          return <li><Card key={todo.id} todo={todo} /></li>;
+          return <li key={todo.id}><Card todo={todo} /></li>;
         })}
       </ul>
     </>
