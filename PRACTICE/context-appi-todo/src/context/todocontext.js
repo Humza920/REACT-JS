@@ -5,6 +5,7 @@ export const TodoContext = createContext({
     addTodo:(todo)=>{},
     updateTodo:(todo , id)=>{},
     deleteTodo:(id)=>{},
+    isdoneTodo:(id , bolean)=>{}
 })
 
 export const TodoProvider = TodoContext.Provider

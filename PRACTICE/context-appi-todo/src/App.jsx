@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { TodoProvider } from "./context/todocontext";
 import Form from "./components/Form";
+
 function App() {
   let getarr = localStorage.getItem("savedArr");
   getarr = JSON.parse(getarr);
@@ -8,7 +9,6 @@ function App() {
   const [todos, settodos] = useState(getarr || []);
 
   useEffect(() => {
-    console.log("run");
     localStorage.setItem("savedArr", JSON.stringify(todos));
   }, [todos]);
 
@@ -17,33 +17,44 @@ function App() {
   };
 
   const updateTodo = (id, todotitle) => {
-    const gettodoforupdate = todos.find((x) => {
-      return x.id === id;
-    });
+    const gettodoforupdate = todos.find((x) => x.id === id);
     const index = todos.indexOf(gettodoforupdate);
     gettodoforupdate.todotitle = todotitle;
     settodos((prev) => {
-      console.log(prev);
       let newTodos = [...prev];
       newTodos[index] = gettodoforupdate;
       return newTodos;
     });
   };
+
   const deleteTodo = (id) => {
-    const newTodos = todos.filter((todo) => {
-      return todo.id !== id;
-    });
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    settodos(newTodos);
+  };
+
+  const isdoneTodo = (id, bolean) => {
+    const isdone = todos.find((x) => x.id === id);
+    isdone.isCompleted = bolean;
+    const index = todos.indexOf(isdone);
+    const newTodos = [...todos];
+    newTodos[index] = isdone;
     settodos(newTodos);
   };
 
   return (
-    <>
-      <TodoProvider value={{ todos, addTodo, updateTodo, deleteTodo }}>
-        <h1>Todo List</h1>
+    <TodoProvider
+      value={{ todos, addTodo, updateTodo, deleteTodo, isdoneTodo }}
+    >
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex flex-col items-center py-10">
+        {/* Heading */}
+        <h1 className="text-4xl font-bold text-gray-800 mb-6 drop-shadow-sm">
+          📝 Todo App
+        </h1>
+
+        {/* Form + Todos */}
         <Form />
-      </TodoProvider>
-      ;
-    </>
+      </div>
+    </TodoProvider>
   );
 }
 
