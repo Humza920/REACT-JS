@@ -1,15 +1,12 @@
 import { useState , useEffect } from "react";
 import { ThemeProvider } from "./Context/themecontext";
 import Button from "./Components/buttonToggler";
+import { themeTogglerFunc } from "./utilsfunc";
 function App() {
   const [theme, setTheme] = useState("dark");
-  const themeToggler = () => {
-    if (theme === "dark") {
-        setTheme("light");
-    } else {
-        setTheme("dark");
-    }
-};
+  const themeToggler = ()=>{
+    themeTogglerFunc(theme , setTheme)
+  }
 
   useEffect(() => {
     document.querySelector("html").classList.remove("dark" , "light")
