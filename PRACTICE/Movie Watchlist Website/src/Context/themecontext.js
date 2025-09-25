@@ -2,7 +2,7 @@ import { createContext , useContext } from "react";
 
 const ThemeContext = createContext({
     theme:"dark",
-    themeToggler:(theme , setTheme)=>{}
+    themeToggler:()=>{}
 })
 
 export const ThemeProvider = ThemeContext.Provider
