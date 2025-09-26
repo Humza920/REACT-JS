@@ -2,7 +2,7 @@ import { createContext , useContext } from "react";
 
 const MovieContext = createContext({
     movieArr : [],
-    addMovie : ()=>{},
+    addMovie : (obj)=>{},
     removeMovie : ()=>{}
 })
 
