@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react";  
 import { useMovie } from "../Context/moviecontext";
 
 const Form = () => {
@@ -9,14 +9,13 @@ const Form = () => {
   const [duration, setduration] = useState("");
   const [rating, setrating] = useState(0);
   const [poster, setposter] = useState(null);
-  const { movieArr , addMovie } = useMovie();
-  console.log(movieArr);
+  const [coverPoster, setcoverPoster] = useState(null);
+  const [movieLink, setmovieLink] = useState("");
 
-  let obj ;
+  const { addMovie } = useMovie();
 
-  const onSubmitBtn = ()=>{
-    
-    obj = {
+  const onSubmitBtn = () => {
+    let obj = {
       movieName,
       movieDescription,
       releaseDate,
@@ -24,156 +23,189 @@ const Form = () => {
       duration,
       rating,
       poster,
-      isWatched : false
-    }
-    addMovie(obj)
-  }
+      coverPoster,
+      movieLink,
+      isWatched: false,
+    };
+    addMovie(obj);
+  };
 
   return (
     <>
-      <form className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-md space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 text-center">
-          Add a Movie
-        </h2>
-
-        <div>
-          <label
-            htmlFor="movieName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Movie Name
-          </label>
-          <input
-            type="text"
-            id="movieName"
-            placeholder="Enter Movie Name"
-            className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-            value={movieName}
-            onChange={(e) => setmovieName(e.target.value)}
-          />
+      <form className="max-w-4xl mx-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8 rounded-2xl shadow-2xl space-y-6 border border-slate-700/50 backdrop-blur-sm">
+        <div className="text-center space-y-2 pb-4 border-b border-slate-700/50">
+          <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Add New Movie
+          </h2>
+          <p className="text-slate-400 text-sm">Fill in the details to add a movie to your collection</p>
         </div>
 
-        <div>
-          <label
-            htmlFor="movieDesc"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Description
-          </label>
-          <textarea
-            id="movieDesc"
-            rows="4"
-            placeholder="Enter Movie Description"
-            className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-            value={movieDescription}
-            onChange={(e) => setmovieDescription(e.target.value)}
-          ></textarea>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Movie Name */}
+          <div className="md:col-span-2">
+            <label htmlFor="movieName" className="block text-sm font-semibold text-slate-300 mb-2">
+              Movie Title
+            </label>
+            <input
+              type="text"
+              id="movieName"
+              placeholder="Enter movie title"
+              className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition placeholder-slate-500"
+              required
+              value={movieName}
+              onChange={(e) => setmovieName(e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor="releaseDate"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Release Date
-          </label>
-          <input
-            type="date"
-            id="releaseDate"
-            className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-            value={releaseDate}
-            onChange={(e) => setreleaseDate(e.target.value)}
-          />
-        </div>
+          {/* Description */}
+          <div className="md:col-span-2">
+            <label htmlFor="movieDesc" className="block text-sm font-semibold text-slate-300 mb-2">
+              Description
+            </label>
+            <textarea
+              id="movieDesc"
+              rows="4"
+              placeholder="Enter a brief description of the movie"
+              className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition placeholder-slate-500 resize-none"
+              required
+              value={movieDescription}
+              onChange={(e) => setmovieDescription(e.target.value)}
+            ></textarea>
+          </div>
 
-        <div>
-          <label
-            htmlFor="genre"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Genre
-          </label>
-          <select
-            id="genre"
-            className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-            value={genre}
-            onChange={(e) => setgenre(e.target.value)}
-          >
-            <option value="">Select Genre</option>
-            <option>Action</option>
-            <option>Comedy</option>
-            <option>Drama</option>
-            <option>Horror</option>
-            <option>Sci-Fi</option>
-            <option>Romance</option>
-          </select>
-        </div>
+          {/* Movie Link */}
+          <div className="md:col-span-2">
+            <label htmlFor="movieLink" className="block text-sm font-semibold text-slate-300 mb-2">
+              Movie Link
+            </label>
+            <input
+              type="url"
+              id="movieLink"
+              placeholder="https://example.com/movie"
+              className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition placeholder-slate-500"
+              required
+              value={movieLink}
+              onChange={(e) => setmovieLink(e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor="duration"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Duration (in minutes)
-          </label>
-          <input
-            type="number"
-            id="duration"
-            placeholder="120"
-            className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-            value={duration}
-            onChange={(e) => setduration(e.target.value)}
-          />
-        </div>
+          {/* Release Date */}
+          <div>
+            <label htmlFor="releaseDate" className="block text-sm font-semibold text-slate-300 mb-2">
+              Release Date
+            </label>
+            <input
+              type="date"
+              id="releaseDate"
+              className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
+              required
+              value={releaseDate}
+              onChange={(e) => setreleaseDate(e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Rating
-          </label>
-          <div className="flex space-x-1">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <button
-                key={star}
-                type="button"
-                className="text-2xl text-gray-400 hover:text-yellow-500 focus:outline-none"
-                onClick={() => setrating(star)}
-              >
-                {star <= rating ? "★" : "☆"}
-              </button>
-            ))}
+          {/* Genre */}
+          <div>
+            <label htmlFor="genre" className="block text-sm font-semibold text-slate-300 mb-2">
+              Genre
+            </label>
+            <select
+              id="genre"
+              className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
+              required
+              value={genre}
+              onChange={(e) => setgenre(e.target.value)}
+            >
+              <option value="">Select genre</option>
+              <option>Action</option>
+              <option>Comedy</option>
+              <option>Drama</option>
+              <option>Horror</option>
+              <option>Sci-Fi</option>
+              <option>Romance</option>
+            </select>
+          </div>
+
+          {/* Duration */}
+          <div>
+            <label htmlFor="duration" className="block text-sm font-semibold text-slate-300 mb-2">
+              Duration (minutes)
+            </label>
+            <input
+              type="number"
+              id="duration"
+              placeholder="120"
+              className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition placeholder-slate-500"
+              required
+              value={duration}
+              onChange={(e) => setduration(e.target.value)}
+            />
+          </div>
+
+          {/* Rating */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-300 mb-2">Rating</label>
+            <div className="flex items-center space-x-1 bg-slate-800/50 p-3 rounded-xl border border-slate-600">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  className={`text-3xl transition-all duration-200 ${
+                    star <= rating ? "text-yellow-400 scale-110" : "text-slate-600"
+                  } hover:scale-125 hover:text-yellow-300`}
+                  onClick={() => setrating(star)}
+                >
+                  {star <= rating ? "★" : "☆"}
+                </button>
+              ))}
+              <span className="ml-3 text-slate-400 text-sm font-medium">{rating}/5</span>
+            </div>
+          </div>
+
+          {/* Poster */}
+          <div>
+            <label htmlFor="poster" className="block text-sm font-semibold text-slate-300 mb-2">
+              Poster Image
+            </label>
+            <div className="relative">
+              <input
+                type="file"
+                required
+                id="poster"
+                accept="image/*"
+                className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition text-sm text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-600 file:text-white file:font-semibold hover:file:bg-cyan-700 file:transition"
+                onChange={(e) => setposter(e.target.files[0])}
+              />
+            </div>
+          </div>
+
+          {/* Cover Poster */}
+          <div>
+            <label htmlFor="coverPoster" className="block text-sm font-semibold text-slate-300 mb-2">
+              Cover Image
+            </label>
+            <div className="relative">
+              <input
+                type="file"
+                required
+                id="coverPoster"
+                accept="image/*"
+                className="w-full px-4 py-3 border border-slate-600 bg-slate-800/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-sm text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white file:font-semibold hover:file:bg-blue-700 file:transition"
+                onChange={(e) => setcoverPoster(e.target.files[0])}
+              />
+            </div>
           </div>
         </div>
 
-        <div>
-          <label
-            htmlFor="poster"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Upload Poster
-          </label>
-          <input
-            type="file"
-            // value={poster}
-            id="poster"
-            accept="image/*"
-            className="w-full mt-1"
-            onChange={(e) => setposter(e.target.files[0])}
-          />
-        </div>
-
+        {/* Submit */}
         <button
-          onClick={(e)=>{
-            e.preventDefault()
-            onSubmitBtn()
+          onClick={(e) => {
+            e.preventDefault();
+            onSubmitBtn();
           }}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+          className="w-full bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-600 text-white py-4 rounded-xl shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 font-bold tracking-wide text-lg"
         >
-          Submit Movie
+          Add Movie to Collection
         </button>
       </form>
     </>
