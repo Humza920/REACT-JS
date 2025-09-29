@@ -27,7 +27,10 @@ const Form = () => {
       movieLink,
       isWatched: false,
     };
-    addMovie(obj);
+    console.log(addMovie(obj));
+    
+    console.log("run");
+    
   };
 
   return (
