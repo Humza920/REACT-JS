@@ -1,8 +1,10 @@
 import { createContext, useContext } from "react";
-import { auth, db } from "../firebaseconfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { getuserinFirestore } from "../utilsfunc";
+import { auth } from "../firebaseconfig";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { getuserinFirestore, loginwithFirestore } from "../utilsfunc";
 const AuthContext = createContext({
   user: null,
   allUsers: [],
@@ -24,10 +26,19 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  const loginUser = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        return loginwithFirestore(userCredential);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+  };
+
   return (
-    <AuthContext.Provider
-      value={{ user, allUsers, signupUser, loginUser, logoutUser }}
-    >
+    <AuthContext.Provider value={{ signupUser, loginUser }}>
       {children}
     </AuthContext.Provider>
   );

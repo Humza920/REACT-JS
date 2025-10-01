@@ -1,3 +1,5 @@
+import { setDoc , doc } from "firebase/firestore";
+import { db } from "./firebaseconfig";
 export const themeTogglerFunc = (theme, setTheme) => {
     if (theme === "dark") {
         setTheme("light");
@@ -22,4 +24,9 @@ export const getuserinFirestore = async (userCredential, email, name) => {
     } catch (error) {
         console.error("Error adding document: ", error);
     }
+}
+
+export const loginwithFirestore = (userCredential)=>{
+    const user =  userCredential.user
+    console.log(`Welcome ${user.name}`);
 }
