@@ -30,3 +30,7 @@ export const loginwithFirestore = (userCredential)=>{
     const user =  userCredential.user
     console.log(`Welcome ${user.name}`);
 }
+
+export const logoutFunction = ()=>{
+    console.log("LOGOUT SUCCESSFULLY");
+}
