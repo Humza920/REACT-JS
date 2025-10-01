@@ -1,5 +1,4 @@
 import { createContext, useContext, useState , useEffect} from "react";
-// import { useState , useEffect } from "react";
 const MovieContext = createContext({
   movieArr: [],
   addMovie: (obj) => {},
