@@ -14,8 +14,6 @@ import {
 import { useState , useEffect } from "react";
 const AuthContext = createContext({
   user: null,
-  allUsers: [],
-  allUsers: () => {},
   signupUser: () => {},
   loginUser: () => {},
   logoutUser: () => {},
@@ -37,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const onAuth = onAuthStateChanged(auth, (connecteduser) => {
       setuser(connecteduser);
-      console.log(connecteduser);
+      console.log(connecteduser.uid);
     });
     return ()=>onAuth()
   }, []);
@@ -62,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ signupUser, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ signupUser, loginUser, logoutUser , user}}>
       {children}
     </AuthContext.Provider>
   );

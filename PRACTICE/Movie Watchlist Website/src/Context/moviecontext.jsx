@@ -1,4 +1,5 @@
 import { createContext, useContext, useState , useEffect} from "react";
+import {addInCollection} from "../utilsfunc"
 const MovieContext = createContext({
   movieArr: [],
   addMovie: (obj) => {},
@@ -11,7 +12,9 @@ export const MovieProvider = ({ children }) => {
 
   const [movieArr, setmovieArr] = useState(getMovies ? getMovies : []);
   console.log(movieArr);
-  const addMovie = (obj) => setmovieArr([...movieArr, obj]);
+  const addMovie = (obj , user) => {
+    addInCollection(user , "Movies" , obj)
+  };
   const removeMovie = (id) => {
     const remainArray = movieArr.filter((movie) => movie.id !== id);
     console.log(remainArray);
