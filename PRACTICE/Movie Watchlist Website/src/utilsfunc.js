@@ -40,7 +40,7 @@ export const logoutFunction = ()=>{
     console.log("LOGOUT SUCCESSFULLY" + user);    
 }
 
-// For Adding Movies in Admins Collection
+// For Adding New Collection 
 
 export const addInCollection = async (user_uid , collectionName , obj) => {
     try {
