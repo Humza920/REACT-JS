@@ -1,8 +1,8 @@
 import { createContext, useContext, useState , useEffect} from "react";
-import {addInCollection} from "../utilsfunc"
+import {addInCollection , getMoviesData} from "../utilsfunc"
 const MovieContext = createContext({
   movieArr: [],
-  addMovie: (obj) => {},
+  addMovie: (obj , user) => {},
   removeMovie: (id) => {},
 });
 
@@ -21,8 +21,8 @@ export const MovieProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("Movies", JSON.stringify(movieArr));
-  }, [movieArr]);
+    getMoviesData()
+  }, []);
   return (
     <MovieContext.Provider value={{ movieArr, addMovie, removeMovie }}>
       {children}

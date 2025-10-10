@@ -1,4 +1,4 @@
-import { setDoc , doc , addDoc , collection} from "firebase/firestore";
+import { setDoc , doc , addDoc , collection , getDocs} from "firebase/firestore";
 import { db } from "./firebaseconfig";
 
 
@@ -37,7 +37,7 @@ export const loginwithFirestore = (userCredential)=>{
 
 // For Logout
 export const logoutFunction = ()=>{
-    console.log("LOGOUT SUCCESSFULLY" + user);    
+    console.log("LOGOUT SUCCESSFULLY");    
 }
 
 // For Adding New Collection 
@@ -47,6 +47,18 @@ export const addInCollection = async (user_uid , collectionName , obj) => {
      const draftRef = collection(db , "users" , user_uid , collectionName )
     const draftDoc = await addDoc(draftRef , obj)
     
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// For Taking Data
+export const getMoviesData = async () => {
+    try {
+    const draftRef = collection(db , "users")
+    const takeUsers = await getDocs(draftRef)
+    console.log(takeUsers);
+        
     } catch (error) {
         console.log(error);
     }

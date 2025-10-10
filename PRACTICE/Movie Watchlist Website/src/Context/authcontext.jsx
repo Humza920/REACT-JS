@@ -35,7 +35,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const onAuth = onAuthStateChanged(auth, (connecteduser) => {
       setuser(connecteduser);
-      console.log(connecteduser.uid);
+      // DEKHNA HAI YE 
+      console.log(connecteduser);
     });
     return ()=>onAuth()
   }, []);

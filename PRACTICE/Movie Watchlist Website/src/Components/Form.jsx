@@ -29,14 +29,13 @@ const {loginUser , logoutUser , user} = useAuth()
       isWatched: false,
     };
     addMovie(obj , user.uid);
-    // console.log(obj , user.uid);
+    
     
     console.log("run");
   };
 
   return (
     <>
-    
       <form className="max-w-4xl mx-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8 rounded-2xl shadow-2xl space-y-6 border border-slate-700/50 backdrop-blur-sm">
         <div className="text-center space-y-2 pb-4 border-b border-slate-700/50">
           <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
