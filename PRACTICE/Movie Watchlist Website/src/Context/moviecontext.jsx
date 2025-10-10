@@ -7,11 +7,7 @@ const MovieContext = createContext({
 });
 
 export const MovieProvider = ({ children }) => {
-  let getMovies = localStorage.getItem("Movies");
-  getMovies = JSON.parse(getMovies);
-
-  const [movieArr, setmovieArr] = useState(getMovies ? getMovies : []);
-  console.log(movieArr);
+  const [movieArr, setmovieArr] = useState([]);
   const addMovie = (obj , user) => {
     addInCollection(user , "Movies" , obj)
   };
@@ -21,8 +17,16 @@ export const MovieProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getMoviesData()
-  }, []);
+    const func = async () => {
+      try {
+        const check = await getMoviesData()
+        setmovieArr(check)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    func()
+  },[]);
   return (
     <MovieContext.Provider value={{ movieArr, addMovie, removeMovie }}>
       {children}

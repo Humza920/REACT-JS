@@ -1,11 +1,11 @@
-import { setDoc , doc , addDoc , collection , getDocs} from "firebase/firestore";
+import { setDoc, doc, addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 
 
 
 // For Light and Dark Theme
 export const themeTogglerFunc = (theme, setTheme) => {
-setTheme(theme === "dark" ? "light" : "dark")
+    setTheme(theme === "dark" ? "light" : "dark")
 };
 
 // For Get user in Firestore after sign up
@@ -19,34 +19,34 @@ export const getuserinFirestore = async (userCredential, email, name) => {
             email,
             userId: user.uid,
             createdAt: Date.now(),
-            role:"Admin"
+            role: "User"
         })
 
         console.log("DOCUMENT ADDED SUCCESSFULLY");
-        
+
     } catch (error) {
         console.error("Error adding document: ", error);
     }
 }
 
 // For After Login
-export const loginwithFirestore = (userCredential)=>{
-    const user =  userCredential
+export const loginwithFirestore = (userCredential) => {
+    const user = userCredential
     console.log(`Welcome`);
 }
 
 // For Logout
-export const logoutFunction = ()=>{
-    console.log("LOGOUT SUCCESSFULLY");    
+export const logoutFunction = () => {
+    console.log("LOGOUT SUCCESSFULLY");
 }
 
 // For Adding New Collection 
 
-export const addInCollection = async (user_uid , collectionName , obj) => {
+export const addInCollection = async (user_uid, collectionName, obj) => {
     try {
-     const draftRef = collection(db , "users" , user_uid , collectionName )
-    const draftDoc = await addDoc(draftRef , obj)
-    
+        const draftRef = collection(db, "users", user_uid, collectionName)
+        const draftDoc = await addDoc(draftRef, obj)
+
     } catch (error) {
         console.log(error);
     }
@@ -55,10 +55,22 @@ export const addInCollection = async (user_uid , collectionName , obj) => {
 // For Taking Data
 export const getMoviesData = async () => {
     try {
-    const draftRef = collection(db , "users")
-    const takeUsers = await getDocs(draftRef)
-    console.log(takeUsers);
-        
+        const draftRef = collection(db, "users")
+        const takeUsers = await getDocs(draftRef)
+        const arr = []
+
+        for (const document of takeUsers.docs) {
+            const doc_id = document.id
+            const doc_data = document.data()
+            if (doc_data.role === "Admin") {
+                const draftRef = collection(db, "users", doc_id, "Movies")
+                const getMovies = await getDocs(draftRef)
+                getMovies.forEach((doc) => {
+                    arr.push(doc.data())
+                })
+            }
+        }
+        return arr
     } catch (error) {
         console.log(error);
     }
