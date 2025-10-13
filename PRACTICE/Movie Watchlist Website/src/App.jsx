@@ -5,6 +5,8 @@ import AdminRoute from "./Routes/AdminRoute"
 import AdminUserManage from "./Pages/AdminUserManage";
 import AdminMovieManage from "./Pages/AdminMovieManage";
 import AdminAddMovie from "./Pages/AdminAddMovie";
+import ModalRoute from "./Routes/ModalRoute";
+import Navbar from "./Components/Navbar";
 function App() {
   const router = createBrowserRouter([
     {
@@ -25,7 +27,10 @@ function App() {
       ]
     }
   ])
-  return  <RouterProvider router={router}/>
+  return  (<>
+  <RouterProvider router={router}/>
+  <ModalRoute />
+  </>)
 }
 
 export default App;

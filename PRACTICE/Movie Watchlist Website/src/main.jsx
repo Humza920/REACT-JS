@@ -6,13 +6,16 @@ import App from "./App.jsx";
 import { ThemeProvider } from "./Context/themecontext.jsx";
 import { MovieProvider } from "./Context/moviecontext.jsx";
 import { AuthProvider } from "./Context/authcontext.jsx";
+import { ModalProvider } from "./Context/modalcontext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider>
-    <AuthProvider>
-      <MovieProvider>
-        <App />
-      </MovieProvider>
-    </AuthProvider>
+    <ModalProvider>
+      <AuthProvider>
+        <MovieProvider>
+          <App />
+        </MovieProvider>
+      </AuthProvider>
+    </ModalProvider>
   </ThemeProvider>
 );

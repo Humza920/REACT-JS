@@ -1,6 +1,7 @@
 import { useAuth } from "../Context/authcontext";
 import { useState } from "react";
 import { useMovie } from "../Context/moviecontext";
+import Navbar from "./Navbar";
 
 const Form = () => {
   const [movieName, setmovieName] = useState("");
@@ -34,7 +35,7 @@ const {loginUser , logoutUser , user } = useAuth()
     console.log("run");
   };
 
-  // console.log(movieArr);
+  console.log(movieArr);
   
   
   
@@ -218,6 +219,7 @@ const {loginUser , logoutUser , user } = useAuth()
     //   </form>
     // </>
     <>
+    <Navbar />
     <button onClick={logoutUser}>LOGOUT</button><br />
     <button onClick={()=>{loginUser("humza.rehman.779@gmail.com" , "Humnal@920")}}>LOGIN</button>
     </>

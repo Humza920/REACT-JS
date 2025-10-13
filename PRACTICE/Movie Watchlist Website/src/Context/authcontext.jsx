@@ -41,12 +41,14 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const onAuth = onAuthStateChanged(auth, async (connecteduser) => {
       setloading(true);
+      console.log(connecteduser);
+      
       if (connecteduser) {
         try {
           const getRole = await getUser(connecteduser.uid);
           setuserRole(getRole.role);
           setuser(connecteduser);
-          console.log(connecteduser);
+          // console.log(connecteduser);
         } catch (error) {
           console.log(error);
           setuserRole(null);

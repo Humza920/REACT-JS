@@ -68,11 +68,7 @@ export const getMoviesData = async () => {
             const doc_id = document.id
             const doc_data = document.data()
             if (doc_data.role === "Admin") {
-                const draftRef = collection(db, "users", doc_id, "Movies")
-                const getMovies = await getDocs(draftRef)
-                getMovies.forEach((doc) => {
-                    arr.push(doc.data())
-                })
+                await get("Movies" , doc_id)
             }
         }
         return arr
@@ -81,6 +77,15 @@ export const getMoviesData = async () => {
     }
 }
 
+// GETTING THEIR INTERNAL DATA FROM USERS 
+
+const get = async (param , doc_id) => {
+     const draftRef = collection(db, "users", doc_id, param)
+                const getMovies = await getDocs(draftRef)
+                getMovies.forEach((doc) => {
+                    arr.push(doc.data())
+                })
+}               
 
 // GETTING SINGLE USER
 
@@ -88,7 +93,7 @@ export const getUser = async (uid) => {
     try {
         const docRef = doc(db, "users", uid)
         const gettingUserForRole = await getDoc(docRef)
-        console.log(gettingUserForRole.data());
+        // console.log(gettingUserForRole.data());
         return gettingUserForRole.data()
     } catch (error) {
         console.log(error);

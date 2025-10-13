@@ -21,6 +21,8 @@ export const MovieProvider = ({ children }) => {
       try {
         const check = await getMoviesData()
         setmovieArr(check)
+        console.log(check);
+        
       } catch (error) {
         console.log(error);
       }
