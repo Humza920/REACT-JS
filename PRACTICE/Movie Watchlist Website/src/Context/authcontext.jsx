@@ -7,13 +7,16 @@ import {
   signOut,
 } from "firebase/auth";
 import {
+  getUser,
   getuserinFirestore,
   loginwithFirestore,
   logoutFunction,
 } from "../utilsfunc";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 const AuthContext = createContext({
   user: null,
+  userRole: null,
+  loading: true,
   signupUser: () => {},
   loginUser: () => {},
   logoutUser: () => {},
@@ -21,6 +24,9 @@ const AuthContext = createContext({
 
 export const AuthProvider = ({ children }) => {
   const [user, setuser] = useState(null);
+  const [userRole, setuserRole] = useState(null);
+  const [loading, setloading] = useState(true);
+
   const signupUser = (name, email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -33,12 +39,26 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const onAuth = onAuthStateChanged(auth, (connecteduser) => {
-      setuser(connecteduser);
-      // DEKHNA HAI YE 
-      console.log(connecteduser);
+    const onAuth = onAuthStateChanged(auth, async (connecteduser) => {
+      setloading(true);
+      if (connecteduser) {
+        try {
+          const getRole = await getUser(connecteduser.uid);
+          setuserRole(getRole.role);
+          setuser(connecteduser);
+          console.log(connecteduser);
+        } catch (error) {
+          console.log(error);
+          setuserRole(null);
+        }
+      } else {
+        setuserRole(null);
+        setuser(null);
+      }
+
+      setloading(false);
     });
-    return ()=>onAuth()
+    return () => onAuth();
   }, []);
 
   const loginUser = (email, password) => {
@@ -61,7 +81,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ signupUser, loginUser, logoutUser , user}}>
+    <AuthContext.Provider
+      value={{ signupUser, loginUser, logoutUser, user, userRole, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

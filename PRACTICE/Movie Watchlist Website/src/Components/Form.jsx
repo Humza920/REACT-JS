@@ -13,7 +13,7 @@ const Form = () => {
   const [coverPoster, setcoverPoster] = useState(null);
   const [movieLink, setmovieLink] = useState("");
   const { addMovie , movieArr} = useMovie();
-const {loginUser , logoutUser , user} = useAuth()
+const {loginUser , logoutUser , user } = useAuth()
 
   const onSubmitBtn = () => {
     let obj = {
@@ -34,7 +34,8 @@ const {loginUser , logoutUser , user} = useAuth()
     console.log("run");
   };
 
-  console.log(movieArr);
+  // console.log(movieArr);
+  
   
   
   return (

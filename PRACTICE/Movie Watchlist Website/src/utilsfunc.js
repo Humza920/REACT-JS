@@ -1,4 +1,4 @@
-import { setDoc, doc, addDoc, collection, getDocs } from "firebase/firestore";
+import { setDoc, doc, addDoc, collection, getDocs, getDoc } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 
 
@@ -46,6 +46,11 @@ export const addInCollection = async (user_uid, collectionName, obj) => {
     try {
         const draftRef = collection(db, "users", user_uid, collectionName)
         const draftDoc = await addDoc(draftRef, obj)
+        console.log("MOVIE SUCCESSFULLY POSTED");
+
+        await updateDoc(doc(draftRef, draftDoc.id), {
+            draftDoc_id: draftDoc.id,
+        });
 
     } catch (error) {
         console.log(error);
@@ -71,6 +76,20 @@ export const getMoviesData = async () => {
             }
         }
         return arr
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+// GETTING SINGLE USER
+
+export const getUser = async (uid) => {
+    try {
+        const docRef = doc(db, "users", uid)
+        const gettingUserForRole = await getDoc(docRef)
+        console.log(gettingUserForRole.data());
+        return gettingUserForRole.data()
     } catch (error) {
         console.log(error);
     }
