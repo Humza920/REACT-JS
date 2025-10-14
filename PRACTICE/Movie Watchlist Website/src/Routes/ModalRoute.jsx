@@ -5,7 +5,9 @@ import Signup from "../Pages/Signup"
 
 const ModalRoute = () => {
     const {modalType , modalStatus } = useModal()
-    if (!modalStatus) null
+    console.log(modalStatus);
+    
+    if (!modalStatus) return null
   return (
     <>
     {modalType === "login" ? <Login /> : <Signup />}    

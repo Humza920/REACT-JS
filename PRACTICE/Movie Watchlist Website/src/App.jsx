@@ -6,12 +6,17 @@ import AdminUserManage from "./Pages/AdminUserManage";
 import AdminMovieManage from "./Pages/AdminMovieManage";
 import AdminAddMovie from "./Pages/AdminAddMovie";
 import ModalRoute from "./Routes/ModalRoute";
-import Navbar from "./Components/Navbar";
+import Main from "./Layouts/Main"
+import Home from "./Pages/Home";
+// import Navbar from "./Components/Navbar";
 function App() {
   const router = createBrowserRouter([
     {
       path:"/",
-      element:<Form />
+      element:<Main />,
+      children:[
+        {path:"" , element:<Home />}
+      ]
     },
     {
       path:"/admin",
