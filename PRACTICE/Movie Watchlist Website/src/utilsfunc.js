@@ -62,16 +62,16 @@ export const getMoviesData = async () => {
     try {
         const draftRef = collection(db, "users")
         const takeUsers = await getDocs(draftRef)
-        const arr = []
 
         for (const document of takeUsers.docs) {
             const doc_id = document.id
             const doc_data = document.data()
             if (doc_data.role === "Admin") {
-                await get("Movies" , doc_id)
+               const denmo = await get("Movies", doc_id)
+               console.log(denmo);
+               
             }
         }
-        return arr
     } catch (error) {
         console.log(error);
     }
@@ -79,13 +79,15 @@ export const getMoviesData = async () => {
 
 // GETTING THEIR INTERNAL DATA FROM USERS 
 
-const get = async (param , doc_id) => {
-     const draftRef = collection(db, "users", doc_id, param)
-                const getMovies = await getDocs(draftRef)
-                getMovies.forEach((doc) => {
-                    arr.push(doc.data())
-                })
-}               
+const get = async (param, doc_id) => {
+    let arr = []
+    const draftRef = collection(db, "users", doc_id, param)
+    const getData = await getDocs(draftRef)
+    getData.forEach((doc) => {
+        arr.push(doc.data())
+    })
+    return arr
+}
 
 // GETTING SINGLE USER
 

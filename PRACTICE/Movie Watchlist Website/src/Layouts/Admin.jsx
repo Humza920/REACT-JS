@@ -9,15 +9,16 @@ const Admin = () => {
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
 
-        {/* 🔸 Logo + Title */}
-        <div className="relative z-10 flex items-center gap-3 mb-8">
-          <div className="p-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl shadow-md">
-            <i className="fas fa-clapperboard text-white text-lg"></i>
-          </div>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-            CineStream Pro
-          </h2>
-        </div>
+       {/* 🔸 Logo + Title */}
+<div className="relative z-10 flex items-center gap-3 mb-8">
+  <div className="p-3 bg-cyan-600 rounded-2xl cyan-500/30">
+    <i className="fas fa-film text-white text-2xl"></i>
+  </div>
+  <h2 className="text-2xl font-bold text-cyan-400 tracking-wide">
+    CineStream Pro
+  </h2>
+</div>
+
 
         {/* 🔸 Profile Section */}
         <div className="relative z-10 flex items-center justify-between bg-slate-700/40 rounded-xl border border-slate-600/50 p-3 shadow-inner hover:shadow-cyan-500/10 transition-all duration-300">
@@ -49,7 +50,7 @@ const Admin = () => {
           {[
             { to: "/admin/addmovie", icon: "fa-plus-circle", label: "Add Movie" },
             { to: "/admin/usermanage", icon: "fa-users-cog", label: "User Management" },
-            { to: "/admin/moviemanage", icon: "fa-film", label: "Movie Management" },
+            { to: "/admin/moviemanage", icon: "fas fa-clapperboard", label: "Movie Management" },
           ].map((item) => (
             <NavLink
               key={item.to}
