@@ -7,6 +7,7 @@ import {
   signOut,
 } from "firebase/auth";
 import {
+  gettingAllUsers,
   getUser,
   getuserinFirestore,
   loginwithFirestore,
@@ -28,6 +29,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setuser] = useState(null);
   const [userRole, setuserRole] = useState(null);
   const [loading, setloading] = useState(true);
+
+
 
   const signupUser = (name, email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -59,9 +62,15 @@ export const AuthProvider = ({ children }) => {
         setuserRole(null);
         setuser(null);
       }
-
       setloading(false);
+
+      const get = await gettingAllUsers()
+      console.log(get);
+      
+      setallUsers(get)      
     });
+
+
     return () => onAuth();
   }, []);
 
@@ -86,7 +95,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signupUser, loginUser, logoutUser, user, userRole, loading }}
+      value={{ signupUser, loginUser, logoutUser, user, userRole, loading, allUsers }}
     >
       {children}
     </AuthContext.Provider>

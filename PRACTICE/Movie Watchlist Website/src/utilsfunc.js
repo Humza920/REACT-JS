@@ -67,7 +67,7 @@ export const getMoviesData = async () => {
             const doc_id = document.id
             const doc_data = document.data()
             if (doc_data.role === "Admin") {
-               return await get("Movies", doc_id)
+                return await get("Movies", doc_id)
             }
         }
     } catch (error) {
@@ -78,17 +78,17 @@ export const getMoviesData = async () => {
 // GETTING THEIR INTERNAL DATA FROM USERS 
 
 const get = async (param, doc_id) => {
-   try {
-     let arr = []
-    const draftRef = collection(db, "users", doc_id, param)
-    const getData = await getDocs(draftRef)
-    getData.forEach((doc) => {
-        arr.push(doc.data())
-    })
-    return arr
-   } catch (error) {
-    console.log(error);
-   }
+    try {
+        let arr = []
+        const draftRef = collection(db, "users", doc_id, param)
+        const getData = await getDocs(draftRef)
+        getData.forEach((doc) => {
+            arr.push(doc.data())
+        })
+        return arr
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 // GETTING SINGLE USER
@@ -106,19 +106,45 @@ export const getUser = async (uid) => {
 
 
 
+// FOR IMG
+export const uploadImageToImgbb = async (file) => {
+    if (file) {
+        try {
+            const formData = new FormData();
+            formData.append("image", file);
 
-const uploadImageToImgbb = async (file) => {
-  const formData = new FormData();
-  formData.append("image", file);
+            const response = await fetch(
+                `https://api.imgbb.com/1/upload?key=42545073d62eda10c2762262e4e45856`,
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
 
-  const response = await fetch(
-    `42545073d62eda10c2762262e4e45856`,
-    {
-      method: "POST",
-      body: formData,
+            const data = await response.json();
+            return data.data.url;
+        } catch (error) {
+            console.log(error);
+        }
+
+    } else {
+        console.log("PLZ SELECT A FILE");
     }
-  );
-
-  const data = await response.json();
-  return data.data.url; // 🔹 ye hosted image ka public URL hai
 };
+
+// GETTING ALL THE USERS
+export const gettingAllUsers = async () => {
+    let usersArr = []
+    try {
+        const draftRef = collection(db, "users")
+        const get = await getDocs(draftRef)
+        get.docs.forEach((x)=>{
+            usersArr.push(x.data())
+        })
+        return usersArr
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
