@@ -17,12 +17,14 @@ const AuthContext = createContext({
   user: null,
   userRole: null,
   loading: true,
+  allUsers:null,
   signupUser: () => {},
   loginUser: () => {},
   logoutUser: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
+  const [allUsers , setallUsers] = useState(null)
   const [user, setuser] = useState(null);
   const [userRole, setuserRole] = useState(null);
   const [loading, setloading] = useState(true);

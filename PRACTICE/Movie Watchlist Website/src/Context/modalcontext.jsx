@@ -14,6 +14,7 @@ export const ModalProvider = ({ children }) => {
             setmodalType(log_sign)
         } else {
             setmodalStatus(false)
+            setmodalType(null)
         }
     }
   return (

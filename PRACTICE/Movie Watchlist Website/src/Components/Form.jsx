@@ -13,7 +13,7 @@ const Form = () => {
   const [poster, setposter] = useState(null);
   const [coverPoster, setcoverPoster] = useState(null);
   const [movieLink, setmovieLink] = useState("");
-  const { addMovie , movieArr} = useMovie();
+  const { addMovie } = useMovie();
 const {loginUser , logoutUser , user } = useAuth()
 
   const onSubmitBtn = () => {
@@ -34,11 +34,7 @@ const {loginUser , logoutUser , user } = useAuth()
     
     console.log("run");
   };
-
-  console.log(movieArr);
-  
-  
-  
+    
   return (
     <>
       <form className="max-w-4xl mx-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8 rounded-2xl shadow-2xl space-y-6 border border-slate-700/50 backdrop-blur-sm">
@@ -218,12 +214,6 @@ const {loginUser , logoutUser , user } = useAuth()
         </button>
       </form>
     </>
-    // <>
-    
-    // <button onClick={logoutUser}>LOGOUT</button><br />
-    // <button onClick={()=>{loginUser("humza.rehman.779@gmail.com" , "Humnal@920")}}>LOGIN</button>
-    // </>
-    
   );
 };
 

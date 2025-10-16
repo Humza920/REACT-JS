@@ -1,4 +1,4 @@
-import { setDoc, doc, addDoc, collection, getDocs, getDoc } from "firebase/firestore";
+import { setDoc, doc, addDoc, collection, getDocs, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 
 
@@ -67,9 +67,7 @@ export const getMoviesData = async () => {
             const doc_id = document.id
             const doc_data = document.data()
             if (doc_data.role === "Admin") {
-               const denmo = await get("Movies", doc_id)
-               console.log(denmo);
-               
+               return await get("Movies", doc_id)
             }
         }
     } catch (error) {
@@ -80,13 +78,17 @@ export const getMoviesData = async () => {
 // GETTING THEIR INTERNAL DATA FROM USERS 
 
 const get = async (param, doc_id) => {
-    let arr = []
+   try {
+     let arr = []
     const draftRef = collection(db, "users", doc_id, param)
     const getData = await getDocs(draftRef)
     getData.forEach((doc) => {
         arr.push(doc.data())
     })
     return arr
+   } catch (error) {
+    console.log(error);
+   }
 }
 
 // GETTING SINGLE USER
@@ -101,3 +103,22 @@ export const getUser = async (uid) => {
         console.log(error);
     }
 }
+
+
+
+
+const uploadImageToImgbb = async (file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const response = await fetch(
+    `42545073d62eda10c2762262e4e45856`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  const data = await response.json();
+  return data.data.url; // 🔹 ye hosted image ka public URL hai
+};

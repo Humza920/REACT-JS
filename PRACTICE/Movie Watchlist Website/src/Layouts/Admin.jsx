@@ -1,6 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useAuth } from "../Context/authcontext";
 
 const Admin = () => {
+  const {logoutUser} = useAuth()
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200 font-poppins">
       {/* 🔹 Sidebar */}
@@ -35,10 +37,12 @@ const Admin = () => {
 
             {/* Dropdown */}
             <div className="absolute right-0 top-full mt-2 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300 w-44 bg-slate-800/95 backdrop-blur-xl border border-slate-700 rounded-xl shadow-lg p-2">
-              <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-700/50 transition-colors text-sm">
+              {/* <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-700/50 transition-colors text-sm">
                 <i className="fas fa-cog text-cyan-400"></i> Settings
-              </button>
-              <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-700/50 transition-colors text-sm">
+              </button> */}
+              <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-700/50 transition-colors text-sm"
+              onClick={logoutUser}
+              >
                 <i className="fas fa-sign-out-alt text-red-400"></i> Logout
               </button>
             </div>

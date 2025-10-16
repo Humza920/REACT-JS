@@ -6,7 +6,7 @@ import { useAuth } from "../Context/authcontext";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toggleModal } = useModal();
-  const { user, userRole, loading } = useAuth();
+  const { user, userRole, loading, logoutUser } = useAuth();
 
   const navLinks = [
     { to: "/", label: "Home", icon: "fa-home" },
@@ -18,7 +18,6 @@ const Navbar = () => {
 
   return (
     <>
-
       <nav className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700/50 shadow-2xl sticky top-0 z-50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -29,7 +28,7 @@ const Navbar = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                 CineStream Pro
+                  CineStream Pro
                 </span>
                 <span className="text-xs text-slate-400 -mt-1">
                   Watch Movies Online
@@ -121,9 +120,31 @@ const Navbar = () => {
                       </button>
                     </>
                   ) : (
-                    <button className="p-2 text-slate-300 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition-all">
-                      <i className="fas fa-user text-lg"></i>
-                    </button>
+                    <div className="relative group">
+                      <button
+                        className="p-2 rounded-full bg-slate-800/60 border border-slate-700 text-slate-300 
+                           hover:text-cyan-400 hover:bg-slate-800 transition-all duration-300 
+                           shadow-md backdrop-blur-md"
+                      >
+                        <i className="fas fa-user text-lg"></i>
+                      </button>
+
+                      {/* Dropdown */}
+                      <div
+                        className="absolute right-0 mt-2 w-36 bg-slate-800 border border-slate-700/60 
+                        rounded-xl shadow-xl opacity-0 scale-95 group-hover:opacity-100 
+                        group-hover:scale-100 transform transition-all duration-200 origin-top-right z-50"
+                      >
+                        <button
+                          className="w-full text-left px-4 py-2 text-red-400 hover:bg-red-600 hover:text-white 
+                       transition-all rounded-lg flex items-center gap-2"
+                          onClick={logoutUser} // 🔹 apni logout function se replace karo
+                        >
+                          <i className="fas fa-sign-out-alt"></i>
+                          Logout
+                        </button>
+                      </div>
+                    </div>
                   )}
                 </>
               )}

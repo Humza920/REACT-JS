@@ -4,7 +4,7 @@ import Login from "../Pages/Login"
 import Signup from "../Pages/Signup"
 
 const ModalRoute = () => {
-    const {modalType , modalStatus } = useModal()
+    const {modalType , modalStatus} = useModal()
     console.log(modalStatus);
     
     if (!modalStatus) return null
