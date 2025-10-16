@@ -1,5 +1,5 @@
 import { createContext, useContext, useState , useEffect} from "react";
-import {addInCollection , getMoviesData} from "../utilsfunc"
+import {addInCollection , getMoviesData, removeMovies} from "../utilsfunc"
 const MovieContext = createContext({
   movieArr: [],
   addMovie: (obj , user) => {},
@@ -11,9 +11,8 @@ export const MovieProvider = ({ children }) => {
   const addMovie = (obj , user) => {
     addInCollection(user , "Movies" , obj)
   };
-  const removeMovie = (id) => {
-    const remainArray = movieArr.filter((movie) => movie.id !== id);
-    console.log(remainArray);
+  const removeMovie = (user_id , id) => {
+    removeMovies(user_id , "Movies" , id)
   };
 
   useEffect(() => {
@@ -21,7 +20,6 @@ export const MovieProvider = ({ children }) => {
       try {
         const check = await getMoviesData()
         setmovieArr(check)
-        console.log(check);
         
       } catch (error) {
         console.log(error);

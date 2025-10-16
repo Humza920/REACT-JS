@@ -1,4 +1,4 @@
-import { setDoc, doc, addDoc, collection, getDocs, getDoc, updateDoc } from "firebase/firestore";
+import { setDoc, doc, addDoc, collection, getDocs, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 
 
@@ -138,7 +138,7 @@ export const gettingAllUsers = async () => {
     try {
         const draftRef = collection(db, "users")
         const get = await getDocs(draftRef)
-        get.docs.forEach((x)=>{
+        get.docs.forEach((x) => {
             usersArr.push(x.data())
         })
         return usersArr
@@ -147,4 +147,15 @@ export const gettingAllUsers = async () => {
     }
 }
 
+// For Removing Form Database
 
+export const removeMovies = async (user_id, collectionName, movie_id) => {
+    try {
+        const draftRef = doc(db, "users", user_id, collectionName, movie_id)
+        const deletingMovie = await deleteDoc(draftRef)
+        console.log(deletingMovie , "DELETE SUCCESSFULLY");
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
