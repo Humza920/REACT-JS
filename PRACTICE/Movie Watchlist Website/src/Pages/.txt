@@ -1,0 +1,7 @@
+onDeleteFunc(draftDoc_id)
+
+  function onDeleteFunc(id){
+   const deleting = filteredArr.splice(id , 1)
+   setfilteredArr(deleting)
+    removeMovie(user.uid , id)
+  }

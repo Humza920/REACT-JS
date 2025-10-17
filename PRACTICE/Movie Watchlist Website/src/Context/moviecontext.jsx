@@ -12,6 +12,8 @@ export const MovieProvider = ({ children }) => {
     addInCollection(user , "Movies" , obj)
   };
   const removeMovie = (user_id , id) => {
+    console.log(user_id , id);
+    
     removeMovies(user_id , "Movies" , id)
   };
 

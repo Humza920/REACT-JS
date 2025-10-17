@@ -1,43 +1,58 @@
 import { useEffect, useState } from "react";
 import { useMovie } from "../Context/moviecontext";
+import { useAuth } from "../Context/authcontext";
 
 const AdminMovieManage = () => {
   let allGeneras = [];
-  const { movieArr } = useMovie();
+  const { movieArr, removeMovie } = useMovie();
+  const { user } = useAuth();
   const [filteredArr, setfilteredArr] = useState([]);
   const [selectedGenra, setselectedGenra] = useState("All");
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true); // 👈 new loading state
+  const [loading, setLoading] = useState(true);
 
-  // ✅ Extract all genres from movieArr
-  movieArr.map((x) => allGeneras.push(x.genre));
+if (movieArr) {
+  console.log(movieArr);
+  
+}
+  
+  // ✅ Extract all genres
+  movieArr?.map((x) => allGeneras.push(x.genre));
   allGeneras = ["All", ...new Set(allGeneras)];
 
-  // 🕒 Simulate loading for 2 seconds initially
+  function onDeleteFunc(id){
+    console.log(id);
+   const deleting = filteredArr.filter((x)=>x.draftDoc_id !== id)
+   console.log(deleting);
+   
+   setfilteredArr(deleting)
+    removeMovie(user.uid , id)
+  }
+
+  // 🕒 Loading simulation
   useEffect(() => {
     const timer = setTimeout(() => {
       setfilteredArr(movieArr);
       setLoading(false);
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, [movieArr]);
 
-  // 🔍 Filter by search
+  // 🔍 Search filter
   useEffect(() => {
     if (search === "") {
       setfilteredArr(movieArr);
       setselectedGenra("All");
     } else {
-      const filtering = movieArr.filter((obj) => {
-        const nameOfMovie = obj.movieName.trim().toLowerCase();
-        return nameOfMovie.includes(search.trim().toLowerCase());
-      });
+      const filtering = movieArr.filter((obj) =>
+        obj.movieName.trim().toLowerCase().includes(search.trim().toLowerCase())
+      );
       setfilteredArr(filtering);
-      setselectedGenra("All")
+      setselectedGenra("All");
     }
   }, [search, movieArr]);
 
-  // 🎭 Filter by genre
+  // 🎭 Genre filter
   useEffect(() => {
     if (selectedGenra === "All") {
       setfilteredArr(movieArr);
@@ -51,7 +66,6 @@ const AdminMovieManage = () => {
   return (
     <div className="min-h-screen bg-slate-950 p-6 text-slate-200">
       <div className="max-w-7xl mx-auto">
-        {/* Loading Spinner */}
         {loading ? (
           <div className="flex justify-center items-center h-[70vh]">
             <p className="text-cyan-400 text-lg animate-pulse">
@@ -93,23 +107,24 @@ const AdminMovieManage = () => {
                 filteredArr.map((movie, index) => (
                   <div
                     key={index}
-                    className="bg-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition-all border border-slate-800 hover:border-cyan-600"
+                    className="bg-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition-all border border-slate-800 hover:border-cyan-600 flex flex-col"
                   >
                     <img
                       src={
-                        movie?.coverPoster || movie?.poster || "/placeholder.jpg"
+                        movie?.coverPoster ||
+                        movie?.poster ||
+                        "/placeholder.jpg"
                       }
                       alt={movie?.movieName || "Movie"}
                       className="w-full h-56 object-cover"
                     />
 
-                    <div className="p-4 space-y-2">
+                    <div className="p-4 space-y-2 flex-1 flex flex-col">
                       <h3 className="text-lg font-semibold text-cyan-400 truncate">
                         {movie?.movieName || "Untitled"}
                       </h3>
                       <p className="text-sm text-slate-400 line-clamp-2">
-                        {movie?.movieDescription ||
-                          "No description available."}
+                        {movie?.movieDescription || "No description available."}
                       </p>
 
                       <div className="flex items-center justify-between text-sm text-slate-400">
@@ -121,6 +136,14 @@ const AdminMovieManage = () => {
                         <span>⏱ {movie?.duration || "—"}</span>
                         <span>📅 {movie?.releaseDate || "—"}</span>
                       </div>
+
+                      {/* 🔥 DELETE MOVIE BUTTON */}
+                      <button
+                        onClick={() => onDeleteFunc(movie?.draftDoc_id)} 
+                        className="mt-4 w-full py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-red-600/80 to-red-500/80 text-white hover:from-red-500 hover:to-red-400 transition-all duration-300 shadow-md hover:shadow-red-500/20"
+                      >
+                        <i className="fas fa-trash-alt mr-2"></i> Delete Movie
+                      </button>
                     </div>
                   </div>
                 ))
