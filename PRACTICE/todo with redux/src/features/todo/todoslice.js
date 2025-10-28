@@ -1,23 +1,30 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initState = {
+const initialState = {
     todos: []
 }
 
 const todoSlice = createSlice({
     name: "todos",
-    initState,
+    initialState,
     reducers: {
         addtodo: (state, action) => { state.todos.push(action.payload) },
         removetodo: (state, action) => {
-            state.todos.filter((x) => {
-            return x.id !== action.payload
+            state.todos = state.todos.filter((x) => {
+                console.log(x.id !== action.payload);
+                x.id !== action.payload
             })
         },
         markasdone: (state, action) => {
-            const todo = state.todos.find((x) => x.id === action.payload.id);
+            const todo = state.todos.find((x) => x.id === action.payload);
             if (todo) {
-                todo.isCompleted = action.payload.toggle;
+                if (todo.isCompleted === false) {
+                    todo.isCompleted = true
+                    console.log(todo);
+                } else {
+                    todo.isCompleted = false
+                    console.log(todo);
+                }
             }
         }
 
